@@ -9,8 +9,8 @@
 #include "meslib.h"
 #include "winbgi2.h"
 
-int MX = 20;                      // number of horizontal elements
-int MY = 15;                      // number of vertical elements
+int MX = 100;                      // number of horizontal elements
+int MY = 50;                      // number of vertical elements
 int N = 2 * (MX + 1) * (MY + 1); // total DOF
 
 int main()
@@ -20,7 +20,7 @@ int main()
     double* f;
     double** K, * K_row;
 
-    fix = (int*)calloc(N, sizeof(int)); //alloc constrraints
+    fix = (int*)calloc(N, sizeof(int));           //alloc constrraints
     if (fix == NULL) {
         perror("main (fix)");
         exit(1);
@@ -35,37 +35,54 @@ int main()
         perror("main (f)");
         exit(1);
     }
-    K_row = (double*)calloc(N*N, sizeof(double)); //alloc stiffness matrix
+    K_row = (double*)calloc(8 * 8, sizeof(double)); //alloc stiffness matrix
     if (K_row == NULL) {
         perror("main (K_row)");
         exit(1);
     }
-    K = (double**)calloc(N, sizeof(double*));       //alloc stiffness matrix
-    for (int i = 0; i < N; i++) K[i] = &K_row[N * i];
+    K = (double**)calloc(N, sizeof(double*));
+    for (int i = 0; i < N; i++) Kg[i] = &Kg_row[N * i];
+    Kg_row = (double*)calloc(N * N, sizeof(double)); //alloc of global stiffness matrix
+    if (Kg_row == NULL) {
+        perror("main (K_row)");
+        exit(1);
+    }
+    Kg = (double**)calloc(N, sizeof(double*));
+    for (int i = 0; i < N; i++) Kg[i] = &Kg_row[N * i];
 
 
-
-    // uzupelnienie globalnej macierzy sztywnosci oraz wektorow wiezow i sil
-
-    for (int i = 0; i < MY + 1; i++) {
+    for (int i = 0; i < MY + 1; i++) {            //supports declaration
         fix[P(0, i, 0)] = 1;
         fix[P(0, i, 1)] = 1;
     }
+    f[P(MX, 0, 1)] = 2;                           //forces declaration
+    f[P(MX, 1, 1)] = 1;
 
-
-    // modyfikacja ukladu r-n ze wzgledu na wiezy
-    // 
-    // rozwiazanie ukladu za pomoca funkcji gauss
-
-    // rysowanie rozwiazania
-    graphics(700, 700);
+    //for (int i = 0; i < MX; i++) {                //creating global matrix
+    //    for (int j = 0; j < MY; j++) {
+    //        for (int k = 0; k < N; k++) {
+    //            g_dof_1 = DOF(elx, ely, dof_1);
+    //        }
+    //        for (int k = 0; k < N; k++) {
+    //            g_dof_2 = DOF(elx, ely, dof_2);
+    //        }
+    //        K[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
+    //    }
+    //}
+    
+    gauss(N, K, f, d);                             //SOLUTION
+    
+    graphics(700, 700);                            //draw a solution
     scale(0, 0.5 * (MY - MX - 3), MX + 3, 0.5 * (MY + MX + 3));
     title("X", "Y", "MES");
     draw(d, f, fix);
     wait();
 
-    // zwolnienie pamieci
     free(fix);
+    free(d);
+    free(f);
+    free(K_row);
+    free(K);
 
     return 0;
 }
