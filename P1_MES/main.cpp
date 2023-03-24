@@ -52,18 +52,18 @@ int main()
     f[P(MX, 0, 1)] = 2;                           //forces declaration
     f[P(MX, 1, 1)] = 1;
 
-    double thick = 5;
-    for (int elx = 0; elx < MX; elx++) {                //creating global matrix  (using local matricies from the library)
-        for (int ely = 0; ely < MY; ely++) {
-            for (int dof_1 = 0; dof_1 < N; dof_1++) {
-                g_dof_1 = DOF(elx, ely, dof_1);
-            }
-            for (int dof_2 = 0; dof_2 < N; dof_2++) {
-                g_dof_2 = DOF(elx, ely, dof_2);
-            }
-            K[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
-        }
-    }
+    //double thick = 5;
+    //for (int elx = 0; elx < MX; elx++) {                //creating global matrix  (using local matricies from the library)
+    //    for (int ely = 0; ely < MY; ely++) {
+    //        for (int dof_1 = 0; dof_1 < N; dof_1++) {
+    //            g_dof_1 = DOF(elx, ely, dof_1);
+    //        }
+    //        for (int dof_2 = 0; dof_2 < N; dof_2++) {
+    //            g_dof_2 = DOF(elx, ely, dof_2);
+    //        }
+    //        K[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
+    //    }
+    //}
     
     //gauss(N, K, f, d);                             //SOLUTION
     
@@ -76,8 +76,8 @@ int main()
     free(fix);
     free(d);
     free(f);
-    free(K_row);
-    free(K);
+    free(Kg_row);
+    free(Kg);
 
     return 0;
 }
