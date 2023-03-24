@@ -19,6 +19,7 @@ int main()
     double* d;
     double* f;
     double** K, * K_row;
+    double** Kg, * Kg_row;
 
     fix = (int*)calloc(N, sizeof(int));           //alloc constrraints
     if (fix == NULL) {
@@ -35,13 +36,6 @@ int main()
         perror("main (f)");
         exit(1);
     }
-    K_row = (double*)calloc(8 * 8, sizeof(double)); //alloc stiffness matrix
-    if (K_row == NULL) {
-        perror("main (K_row)");
-        exit(1);
-    }
-    K = (double**)calloc(N, sizeof(double*));
-    for (int i = 0; i < N; i++) Kg[i] = &Kg_row[N * i];
     Kg_row = (double*)calloc(N * N, sizeof(double)); //alloc of global stiffness matrix
     if (Kg_row == NULL) {
         perror("main (K_row)");
@@ -58,19 +52,20 @@ int main()
     f[P(MX, 0, 1)] = 2;                           //forces declaration
     f[P(MX, 1, 1)] = 1;
 
-    //for (int i = 0; i < MX; i++) {                //creating global matrix
-    //    for (int j = 0; j < MY; j++) {
-    //        for (int k = 0; k < N; k++) {
-    //            g_dof_1 = DOF(elx, ely, dof_1);
-    //        }
-    //        for (int k = 0; k < N; k++) {
-    //            g_dof_2 = DOF(elx, ely, dof_2);
-    //        }
-    //        K[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
-    //    }
-    //}
+    double thick = 5;
+    for (int elx = 0; elx < MX; elx++) {                //creating global matrix  (using local matricies from the library)
+        for (int ely = 0; ely < MY; ely++) {
+            for (int dof_1 = 0; dof_1 < N; dof_1++) {
+                g_dof_1 = DOF(elx, ely, dof_1);
+            }
+            for (int dof_2 = 0; dof_2 < N; dof_2++) {
+                g_dof_2 = DOF(elx, ely, dof_2);
+            }
+            K[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
+        }
+    }
     
-    gauss(N, K, f, d);                             //SOLUTION
+    //gauss(N, K, f, d);                             //SOLUTION
     
     graphics(700, 700);                            //draw a solution
     scale(0, 0.5 * (MY - MX - 3), MX + 3, 0.5 * (MY + MX + 3));
