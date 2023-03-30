@@ -10,7 +10,7 @@
 #include "winbgi2.h"
 
 int MX = 30;                      // number of horizontal elements
-int MY = 10;                      // number of vertical elements
+int MY = 5;                      // number of vertical elements
 int N = 2 * (MX + 1) * (MY + 1); // total DOF
 
 int main()
@@ -48,10 +48,10 @@ int main()
         fix[P(0, i, 0)] = 1;
         fix[P(0, i, 1)] = 1;
     }
-    f[P(MX, 0, 0)] = 2;                           //forces declaration
-    f[P(MX, MY, 1)] = 1;
+    f[P(MX, 0, 1)] = -1;                           //forces declaration
+    f[P(MX, MY, 0)] = -3;
 
-    double thick = 5;
+    double thick = 2;
     int g_dof_1, g_dof_2;                   //index in global stiffnes matrix
     for (int elx = 0; elx < MX; elx++) {                //creating global matrix  (using local matricies from the library)
         for (int ely = 0; ely < MY; ely++) {
@@ -62,6 +62,16 @@ int main()
                     Kg[g_dof_1][g_dof_2] += thick * Md * K[dof_1][dof_2];
                 }
             }
+        }
+    }
+   
+    for (int i = 0; i < N; i++) {       //configuration of system of equations, based on the fixed elements
+        if (fix[i] == 1) {
+            for (int j = 0; j < N; j++) {
+                Kg[i][j] = 0;
+                Kg[j][i] = 0;
+            }
+            Kg[i][i] = 1;   //ones on the diagonal
         }
     }
     
