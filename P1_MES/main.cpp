@@ -72,6 +72,7 @@ int main()
                 Kg[j][i] = 0;
             }
             Kg[i][i] = 1;   //ones on the diagonal
+            f[i] = 0;       //zero the force here
         }
     }
     
