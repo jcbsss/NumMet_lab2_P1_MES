@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="meslib.h" />
+    <ClInclude Include="mylib_precond.h" />
     <ClInclude Include="winbgi2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="meslib.cpp" />
+    <ClCompile Include="mylib_precond.cpp" />
     <ClCompile Include="winbgi2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

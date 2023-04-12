@@ -8,10 +8,11 @@
 #include <math.h>
 #include "meslib.h"
 #include "winbgi2.h"
+//#include "mylib_precond.h"
 
 int MX = 30;                      // number of horizontal elements
-int MY = 5;                      // number of vertical elements
-int N = 2 * (MX + 1) * (MY + 1); // total DOF
+int MY = 5;                       // number of vertical elements
+int N = 2 * (MX + 1) * (MY + 1);  // total DOF
 
 int main()
 {
@@ -75,9 +76,14 @@ int main()
             f[i] = 0;       //zero the force here
         }
     }
-    
+
     gauss(N, Kg, f, d);                             //SOLUTION
-    
+
+    /*double* residuum;
+    residuum = (double*)calloc(N, sizeof(double));
+    res(N, Kg, d, f, residuum);
+    for (int i = 0; i < N; i++) printf("%lf ", residuum[i]);*/
+
     graphics(700, 700);                            //draw a solution
     scale(0, 0.5 * (MY - MX - 3), MX + 3, 0.5 * (MY + MX + 3));
     title("X", "Y", "MES");
