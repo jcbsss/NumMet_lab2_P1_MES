@@ -27,4 +27,5 @@ void multiply_matvec(int N, double** M, double* v, double* r);
 
 /*Dot product*/
 double dot_prod(int N, double* x, double* y);
+
 #endif

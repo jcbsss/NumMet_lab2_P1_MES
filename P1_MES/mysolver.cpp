@@ -44,18 +44,18 @@ void solve(int N, double** A, double* x, double* b, int iter_max, double eps,
 
 void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
 	void (*precond)(int N, double** A, double* r, double* p)) {
-	r
-	Ap
-	Ap_1
-	p
-	p_1
+	double* r;
+	double* Ap;
+	double* Ap_old;
+	double* p;
+	double* p_old;
 
 	for (int iter = 0; iter < N; iter++) {
 		/*1*/
 		res(N, A, x, b, r);
 
 		/*2*/
-		if (norm(N, r) < eps) break;
+		if (norm(N, r) < eps) break; //WILL IT BREAK THE WHOLE FUNCTION OR WHAT
 
 		/*3*/
 		precond(N, A, r, p);
@@ -72,13 +72,14 @@ void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
 
 		/*5*/
 		double alpha;
-		//LICZ ALPHE
+		multiply_matvec(N, A, p, Ap);
+		alpha = dot_prod(N, r, p) / dot_prod(N, p, Ap);
+
+		for (int i = 0; i < N; i++) x[i] = x[i] + alpha * p[i];
 
 		/*6*/
 		for (int i = 0; i < N; i++) p_old[i] = p[i];
-
-
-
+		for (int i = 0; i < N; i++) Ap_old[i] = Ap[i];
 	}
 	}
 
