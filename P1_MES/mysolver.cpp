@@ -91,4 +91,10 @@ void multiply_matvec(int N, double** M, double* v, double* r) {
 	}
 }
 
-void dot_prod(int N, );
+double dot_prod(int N, double* x, double* y) {
+	double dot = 0;
+	for (int i = 0; i < N; i++) {
+		dot = dot + x[i] * y[i];
+	}
+	return dot;
+}
