@@ -14,11 +14,15 @@ double norm(int N, double* res);
 /*Sets simplified vector p the same as residuum*/
 void precond_i(int N, double** A, double* r, double* p);
 
-/*Simplified solve for testing*/
-void solve_simpl(int N, double* A, double* x, double* b, int iter_max, double eps);
-
 /*General solve with a pointer to function*/
-void solve(int N, double* A, double* x, double* b, int iter_max, double eps,
+void solve(int N, double** A, double* x, double* b, int iter_max, double eps,
 	void (*precond)(int N, double** A, double* r, double* p));
 
+/*Solve with conjugate gradient method*/
+void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
+	void (*precond)(int N, double** A, double* r, double* p));
+
+/*Matrix vector multiplication*/
+void multiply_matvec(int N, double** M, double* v, double* r);
+		
 #endif

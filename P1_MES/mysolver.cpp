@@ -37,8 +37,58 @@ void precond_GS(int N, double** A, double* r, double* p) {
 }
 
 
-void solve(int N, double* A, double* x, double* b, int iter_max, double eps,
+void solve(int N, double** A, double* x, double* b, int iter_max, double eps,
 	void (*precond)(int N, double** A, double* r, double* p)) {
-
-	
+	int i = 0;
 }
+
+void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
+	void (*precond)(int N, double** A, double* r, double* p)) {
+	r
+	Ap
+	Ap_1
+	p
+	p_1
+
+	for (int iter = 0; iter < N; iter++) {
+		/*1*/
+		res(N, A, x, b, r);
+
+		/*2*/
+		if (norm(N, r) < eps) break;
+
+		/*3*/
+		precond(N, A, r, p);
+
+		/*4*/
+		if (iter > 0) {
+			double Beta;
+			//LICZ BETE
+
+			for (int i = 0; i < N; i++) {
+				p[i] = p[i] - Beta * p_old[i]
+			}
+		}
+
+		/*5*/
+		double alpha;
+		//LICZ ALPHE
+
+		/*6*/
+		for (int i = 0; i < N; i++) p_old[i] = p[i];
+
+
+
+	}
+	}
+
+void multiply_matvec(int N, double** M, double* v, double* r) {
+	for (int i = 0; i < N; i++) {
+		r[i] = 0;
+		for (int j = 0; j < N; j++) {
+			r[i] = r[i] + M[i][j] * v[j];
+		}
+	}
+}
+
+void dot_prod(int N, );

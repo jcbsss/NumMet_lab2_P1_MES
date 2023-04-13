@@ -78,6 +78,7 @@ int main()
     }
 
     gauss(N, Kg, f, d);                             //SOLUTION
+    //solve_cg(N, Kg, d, f, 30, 1e-8, precond_i);     //SOLUTION using Conjugate Greadient Method
 
     /*double* residuum;
     residuum = (double*)calloc(N, sizeof(double));
