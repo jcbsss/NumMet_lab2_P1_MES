@@ -28,10 +28,17 @@ void precond_Jacobi(int N, double** A, double* r, double* p) {
 
 void precond_GS(int N, double** A, double* r, double* p) {
 	p[0] = r[0] / A[0][0];
-	for (int i = 1; i < N; i++) p[i] = 1/A[i][i]*(r[i]+00000000000.1);//ten precon dokoñczyæ
+	for (int i = 1; i < N; i++) {
+		p[i] = r[i] / A[i][i];
+		for (int j = 0; j < i; j++) {
+			p[i] = p[i] - A[i][j]*p[j];
+		}
+	}
 }
 
-void solve_simpl(int N, double* A, double* x, double* b, int iter_max, double eps);
 
 void solve(int N, double* A, double* x, double* b, int iter_max, double eps,
-	void (*precond)(int N, double** A, double* r, double* p));
+	void (*precond)(int N, double** A, double* r, double* p)) {
+
+	
+}
