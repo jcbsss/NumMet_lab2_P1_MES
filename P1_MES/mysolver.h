@@ -1,5 +1,5 @@
-#ifndef _MYLIB_PRECOND_H_
-#define _MYLIB_PRECOND_H_
+#ifndef _MYSOLVER_H_
+#define _MYSOLVER_H_
 
 #include <stdio.h>
 #include <stdlib.h>

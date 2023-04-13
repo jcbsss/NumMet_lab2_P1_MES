@@ -1,4 +1,4 @@
-#include "mylib_precond.h"
+#include "mysolver.h"
 
 void res(int N, double** A, double* x, double* b, double* r) {
 	for (int i = 0; i < N; i++) {

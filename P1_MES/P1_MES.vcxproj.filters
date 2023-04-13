@@ -21,7 +21,7 @@
     <ClInclude Include="winbgi2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mylib_precond.h">
+    <ClInclude Include="mysolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClCompile Include="meslib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mylib_precond.cpp">
+    <ClCompile Include="mysolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
