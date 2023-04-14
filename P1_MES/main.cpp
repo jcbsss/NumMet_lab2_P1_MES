@@ -78,12 +78,13 @@ int main()
     }
 
     //gauss(N, Kg, f, d);                             //SOLUTION basic
-    solve_cg(N, Kg, d, f, 30, 1e-8, precond_i);     //SOLUTION using Conjugate Greadient Method
+    //solve_cg(N, Kg, d, f, 300, 1e-8, precond_i);     //SOLUTION using General Minimum Residuum Method ***GMINRES***
+    solve_cg(N, Kg, d, f, 130, 1e-10, precond_Jacobi);     //SOLUTION using Conjugate Greadient Method   ***CG***
 
-    /*double* residuum;
+    double* residuum;
     residuum = (double*)calloc(N, sizeof(double));
     res(N, Kg, d, f, residuum);
-    for (int i = 0; i < N; i++) printf("%lf ", residuum[i]);*/
+    for (int i = 0; i < N; i++) printf("%lf ", residuum[i]);
 
     graphics(700, 700);                            //draw a solution
     scale(0, 0.5 * (MY - MX - 3), MX + 3, 0.5 * (MY + MX + 3));
