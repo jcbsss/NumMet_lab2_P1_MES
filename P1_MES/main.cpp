@@ -8,7 +8,7 @@
 #include <math.h>
 #include "meslib.h"
 #include "winbgi2.h"
-//#include "mylib_precond.h"
+#include "mysolver.h"
 
 int MX = 30;                      // number of horizontal elements
 int MY = 5;                       // number of vertical elements
@@ -77,8 +77,8 @@ int main()
         }
     }
 
-    gauss(N, Kg, f, d);                             //SOLUTION
-    //solve_cg(N, Kg, d, f, 30, 1e-8, precond_i);     //SOLUTION using Conjugate Greadient Method
+    //gauss(N, Kg, f, d);                             //SOLUTION basic
+    solve_cg(N, Kg, d, f, 30, 1e-8, precond_i);     //SOLUTION using Conjugate Greadient Method
 
     /*double* residuum;
     residuum = (double*)calloc(N, sizeof(double));

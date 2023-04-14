@@ -45,10 +45,15 @@ void solve(int N, double** A, double* x, double* b, int iter_max, double eps,
 void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
 	void (*precond)(int N, double** A, double* r, double* p)) {
 	double* r;
+	r = (double*)calloc(N, sizeof(double));
 	double* Ap;
+	Ap = (double*)calloc(N, sizeof(double));
 	double* Ap_old;
+	Ap_old = (double*)calloc(N, sizeof(double));
 	double* p;
+	p = (double*)calloc(N, sizeof(double));
 	double* p_old;
+	p_old = (double*)calloc(N, sizeof(double));
 
 	for (int iter = 0; iter < N; iter++) {
 		/*1*/
@@ -63,10 +68,10 @@ void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
 		/*4*/
 		if (iter > 0) {
 			double Beta;
-			//LICZ BETE
+			Beta = dot_prod(N, p, Ap_old) / dot_prod(N, p_old, Ap_old);
 
 			for (int i = 0; i < N; i++) {
-				p[i] = p[i] - Beta * p_old[i]
+				p[i] = p[i] - Beta * p_old[i];
 			}
 		}
 
@@ -83,11 +88,11 @@ void solve_cg(int N, double** A, double* x, double* b, int iter_max, double eps,
 	}
 	}
 
-void multiply_matvec(int N, double** M, double* v, double* r) {
+void multiply_matvec(int N, double** Mtrx, double* vec, double* result) {
 	for (int i = 0; i < N; i++) {
-		r[i] = 0;
+		result[i] = 0;
 		for (int j = 0; j < N; j++) {
-			r[i] = r[i] + M[i][j] * v[j];
+			result[i] = result[i] + Mtrx[i][j] * vec[j];
 		}
 	}
 }
