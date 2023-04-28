@@ -6,8 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <cstdlib>
 #include "meslib.h"
 #include "winbgi2.h"
+#include "mysolver.h"
+#include "ParLib.hpp"
 
 int MX = 30;                      // number of horizontal elements
 int MY = 5;                      // number of vertical elements
@@ -75,9 +78,16 @@ int main()
             f[i] = 0;       //zero the force here
         }
     }
-    
-    gauss(N, Kg, f, d);                             //SOLUTION
-    
+
+    //gauss(N, Kg, f, d);                             //SOLUTION basic
+    solve_cg(N, Kg, d, f, 130, 1e-10, precond_Jacobi);     //SOLUTION using Conjugate Greadient Method   ***CG***
+    //solve_cg_optim(N, Kg, d, f, 300, 1e-8);     //SOLUTION using optimized ***CG***
+
+    double* residuum;
+    residuum = (double*)calloc(N, sizeof(double));
+    res(N, Kg, d, f, residuum);
+    for (int i = 0; i < N; i++) printf("%lf ", residuum[i]);
+
     graphics(700, 700);                            //draw a solution
     scale(0, 0.5 * (MY - MX - 3), MX + 3, 0.5 * (MY + MX + 3));
     title("X", "Y", "MES");

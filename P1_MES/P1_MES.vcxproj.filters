@@ -21,6 +21,12 @@
     <ClInclude Include="winbgi2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mysolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParLib.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
